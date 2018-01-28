@@ -1,0 +1,128 @@
+#include<fstream.h>
+#include<conio.h>
+#include<string.h>
+#include<stdio.h>
+void main()
+{
+	clrscr();
+	int i,j=0,k=0,count=0,count1=0,l=0,m=0,n=0;
+	char title[50],k2[5],k3[5];
+	char kw[4][10],a[10],kw2[4][10];
+	fstream file;
+	file.open("source.txt",ios::in);
+	file.getline(title,50);
+	file.close();
+	for(i=0;title[i]!='\0';i++)
+	{
+		k+=i;
+		if(title!=" ")
+			kw[j][k]=title[i];
+		else
+			j++;
+	}
+	file.open("keyword1.txt",ios::in);
+	j=0;
+	while(!file.eof())
+	{
+		file>>a;
+		if(strcmp(a,kw[j])==0)
+		{
+			strcpy(kw2[j],a);
+			j++;
+			break;
+		}
+	}
+	file.close();
+	file.open("keyword2.txt",ios::in);
+	while(!file.eof())
+	{
+		file>>a;
+		if(strcmp(a,kw[j])==0)
+		{
+			strcpy(kw2[j],"k2");
+			j++;
+			l++;
+			break;
+		}
+	}
+
+	file.close();
+	file.open("keyword3.txt",ios::in);
+	while(!file.eof())
+	{
+		file>>a;
+		if(strcmp(a,kw[j])==0)
+		{
+			strcpy(kw2[j],"k3");
+			j++;
+			m++;
+			break;
+		}
+	}
+	file.close();
+	file.open("keyword4.txt",ios::in);
+	while(!file.eof())
+	{
+		file>>a;
+		if(strcmp(a,kw[j])==0)
+		{
+			j++;
+			n=0;
+			break;
+		}
+	}
+	count=j;
+	file.close();
+	file.open("real.txt",ios::in);
+	j=0;
+	k=0;
+	while(!file.eof())
+	{
+		file.getline(title,50);
+		for(i=0;title[i]!='\0';i++)
+		{
+			k+=i;
+			if(title!=" ")
+				kw[j][k]=title[i];
+			else
+			{
+				j++;
+				continue;
+			}
+		}
+		do
+		{
+			for(k=0;k<count;k++)
+			{
+				if(l!=0)
+				{
+					j++;
+					count1++;
+				}
+				if(m!=0)
+				{
+					j++;
+					count1++;
+				}
+				if(strcmp(kw[j],kw2[k])==0)
+				{
+					j++;
+					count1++;
+				}
+			}
+			j++;
+		}while(j<count);
+	}
+	file.close();
+	char str[]="True News";
+	if(count1<=count)
+	{
+		if(n==0&&k2!=k3)
+			cout<<str;
+		else
+			cout<<"Fake News";
+	}
+	else
+		cout<<"Fake News";
+	getch();
+}
